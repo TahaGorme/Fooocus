@@ -1,8 +1,11 @@
-## Fooocus 
+# 🎉 Fooocus with Bulk Upload 🎉
+
+![Build Status](https://img.shields.io/github/actions/workflow/status/ChrisColeTech/Fooocus/codeql.yml?branch=main&label=Build%20Status)
+
 
 Fooocus is an advanced image generation software built on Gradio, inspired by the designs of Stable Diffusion and Midjourney. It combines the best features of these platforms to provide an offline, open-source, and user-friendly tool for high-quality image generation.
 
-## Features
+## New Features
 
 *   **Batch File Upload & Folder Upload:**
     *   Support for uploading multiple files at once or entire folders for batch processing.
@@ -16,38 +19,32 @@ Fooocus is an advanced image generation software built on Gradio, inspired by th
     *   Improved error handling to provide more informative and user-friendly messages during processing.
 
 
-## New Features
+## 📸 Preview
 
 ### Uploading Images
 
-*   **Single File Upload:**
-    *   Use the file upload option to select and upload individual images for processing.
 *   **Batch File Upload:**
     *   Select multiple files or an entire folder to upload images in bulk.
+    *   ![Preview Image](https://github.com/ChrisColeTech/Fooocus/blob/main/img/preview9.png)
 
 ### Enhancing Images
 
 *   **Immediate Enhancement:**
-    *   Images are enhanced immediately upon upload, with options to adjust enhancement settings.
-*   **Bulk Enhance:**
-    *   Process multiple images at once with bulk enhancement capabilities.
+    *   Images are immediately enhanced after being generated, no more waiting!
+    *   ![Preview Image](https://github.com/ChrisColeTech/Fooocus/blob/main/img/preview5.png)
+
 
 ### Image Resolutions
 
-*   Choose from different resolutions including:
-    *   **Default:** \[Your default resolution here\]
-    *   **512x512:** Faster processing with a smaller resolution.
-    *   **704x704:** Balanced resolution for quicker image generation.
+*   Get faster processing, use less VRAM with smaller resolutions:
+    *   **512x512**
+    *   **704x704**
+    *   ![Preview Image](https://github.com/ChrisColeTech/Fooocus/blob/main/img/preview7.png)
 
 ### Pre-Selection Prompts
 
 *   Use default enhancement prompts for various body parts to ensure high-quality results:
-    *   **Face**
-    *   **Eye**
-    *   **Mouth**
-    *   **Hair**
-    *   **Hand**
-    *   **Body**
+    *  ![Preview Image](https://github.com/ChrisColeTech/Fooocus/blob/main/img/preview8.png)
 
 ## Error Handling
 
