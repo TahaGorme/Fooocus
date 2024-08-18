@@ -1,4 +1,4 @@
-## Fooocus *With Bulk Upload*
+## Fooocus 
 
 Fooocus is an advanced image generation software built on Gradio, inspired by the designs of Stable Diffusion and Midjourney. It combines the best features of these platforms to provide an offline, open-source, and user-friendly tool for high-quality image generation.
 
