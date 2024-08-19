@@ -10,8 +10,11 @@ import importlib.metadata
 import packaging.version
 from packaging.requirements import Requirement
 
+import api.http_server
+
 logging.getLogger("torch.distributed.nn").setLevel(logging.ERROR)  # sshh...
-logging.getLogger("xformers").addFilter(lambda record: 'A matching Triton is not available' not in record.getMessage())
+logging.getLogger("xformers").addFilter(
+    lambda record: 'A matching Triton is not available' not in record.getMessage())
 
 re_requirement = re.compile(r"\s*([-\w]+)\s*(?:==\s*([-+.\w]+))?\s*")
 
@@ -91,7 +94,8 @@ def requirements_met(requirements_file):
 
                 # Check if the installed version satisfies the requirement
                 if installed_version not in requirement.specifier:
-                    print(f"Version mismatch for {package}: Installed version {version_installed} does not meet requirement {requirement}")
+                    print(
+                        f"Version mismatch for {package}: Installed version {version_installed} does not meet requirement {requirement}")
                     return False
             except Exception as e:
                 print(f"Error checking version for {package}: {e}")

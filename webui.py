@@ -14,6 +14,7 @@ import modules.gradio_hijack as grh
 import modules.style_sorter as style_sorter
 import modules.meta_parser
 import args_manager
+
 import copy
 import launch
 from extras.inpaint_mask import SAMOptions
@@ -22,7 +23,7 @@ from modules.sdxl_styles import legal_style_names
 from modules.private_logger import get_current_html_path
 from modules.ui_gradio_extensions import reload_javascript
 from modules.auth import auth_enabled, check_auth
-from modules.util import is_json
+from modules.util import is_json, load_page
 from modules.bulk_enhance_helpers import *
 
 
@@ -707,9 +708,17 @@ with shared.gradio_root:
             outputs=[bulk_enhance_file_explorer,
                      bulk_enhance_folder_row, bulk_enhance_enabled]
         )
-
+# SETTINGS #
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox) as advanced_column:
             with gr.Tab(label='Settings'):
+                jobs_queue = gr.HTML(
+                    load_page('components/job-queue/index.html'))
+                queue_button = gr.Button(
+                    "Add Job", elem_id="add_button")
+
+                queue_button.click(
+                    on_queue_pressed, _js="()=>{addJob()}", inputs=[], outputs=jobs_queue)
+
                 if not args_manager.args.disable_preset_selection:
                     preset_selection = gr.Dropdown(label='Preset',
                                                    choices=modules.config.available_presets,

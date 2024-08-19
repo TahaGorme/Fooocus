@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jobs Queue</title>
+    <link rel="stylesheet" href="/file=web/assets/css/job-queue.css" />
+  </head>
+  <body class="job-queue">
+    <div class="job-queue-container">
+      <div class="tab-content listTab active">
+        <h2>Jobs Queue</h2>
+
+        <div class="jobs-section">
+          <div class="desktop-view">
+            <table class="jobs-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="jobsList">
+                <!-- Rows will be added dynamically here -->
+              </tbody>
+            </table>
+          </div>
+          <div class="mobile-view">
+            <table class="jobs-table">
+              <tbody id="mobileJobsList">
+                <!-- Rows will be added dynamically here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="tab-content detailsTab">
+        <div class="details-section">
+          <h2>Job Details</h2>
+          <div id="jobDetails">
+            <!-- Job details will be displayed here -->
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-navigation">
+        <button class="btn tab-button primary" data-tab="listTab">
+          Back to Jobs Queue
+        </button>
+      </div>
+    </div>
+    <script src="/file=web/assets/js/job-queue.js"></script>
+  </body>
+</html>
+
+<div class="loading style-2"><div class="loading-wheel"></div></div>

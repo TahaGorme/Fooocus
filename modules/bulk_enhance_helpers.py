@@ -1,5 +1,6 @@
 import gradio as gr
 import os
+from api.controllers import jobs_controller
 import modules.config
 import modules.html
 import modules.meta_parser
@@ -148,3 +149,9 @@ def on_selection_change(selected_type):
 
     # Return the prompts
     return positive_prompt, negative_prompt
+
+
+def on_queue_pressed():
+    # add job to queue
+    return gr.update(value=modules.util.load_page('components/job-queue/index.html'))
+    pass

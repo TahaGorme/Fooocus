@@ -1,5 +1,6 @@
 import threading
 
+
 from extras.inpaint_mask import generate_mask_from_image, SAMOptions
 from modules.patch import PatchSettings, patch_settings, patch_all
 import modules.config
@@ -211,6 +212,7 @@ def worker():
     from extras.censor import default_censor
     from modules.sdxl_styles import apply_style, get_random_style, fooocus_expansion, apply_arrays, random_style_name
     from modules.private_logger import log
+
     from extras.expansion import safe_str
     from modules.util import (remove_empty_str, HWC3, resize_image, get_image_shape_ceil, set_image_shape_ceil,
                               get_shape_ceil, resample_image, erode_or_dilate, parse_lora_references_from_prompt,

@@ -17,13 +17,16 @@ from PIL import Image
 import modules.config
 import modules.sdxl_styles
 from modules.flags import Performance
+import shared
 
-LANCZOS = (Image.Resampling.LANCZOS if hasattr(Image, 'Resampling') else Image.LANCZOS)
+LANCZOS = (Image.Resampling.LANCZOS if hasattr(
+    Image, 'Resampling') else Image.LANCZOS)
 
 # Regexp compiled once. Matches entries with the following pattern:
 # <lora:some_lora:1>
 # <lora:aNotherLora:-1.6>
-LORAS_PROMPT_PATTERN = re.compile(r"(<lora:([^:]+):([+-]?(?:\d+(?:\.\d*)?|\.\d+))>)", re.X)
+LORAS_PROMPT_PATTERN = re.compile(
+    r"(<lora:([^:]+):([+-]?(?:\d+(?:\.\d*)?|\.\d+))>)", re.X)
 
 HASH_SHA256_LENGTH = 10
 
@@ -74,7 +77,8 @@ def resize_image(im, width, height, resize_mode=1):
 
         resized = resize(im, src_w, src_h)
         res = Image.new("RGB", (width, height))
-        res.paste(resized, box=(width // 2 - src_w // 2, height // 2 - src_h // 2))
+        res.paste(resized, box=(width // 2 - src_w //
+                  2, height // 2 - src_h // 2))
 
     else:
         ratio = width / height
@@ -85,18 +89,23 @@ def resize_image(im, width, height, resize_mode=1):
 
         resized = resize(im, src_w, src_h)
         res = Image.new("RGB", (width, height))
-        res.paste(resized, box=(width // 2 - src_w // 2, height // 2 - src_h // 2))
+        res.paste(resized, box=(width // 2 - src_w //
+                  2, height // 2 - src_h // 2))
 
         if ratio < src_ratio:
             fill_height = height // 2 - src_h // 2
             if fill_height > 0:
-                res.paste(resized.resize((width, fill_height), box=(0, 0, width, 0)), box=(0, 0))
-                res.paste(resized.resize((width, fill_height), box=(0, resized.height, width, resized.height)), box=(0, fill_height + src_h))
+                res.paste(resized.resize((width, fill_height),
+                          box=(0, 0, width, 0)), box=(0, 0))
+                res.paste(resized.resize((width, fill_height), box=(
+                    0, resized.height, width, resized.height)), box=(0, fill_height + src_h))
         elif ratio > src_ratio:
             fill_width = width // 2 - src_w // 2
             if fill_width > 0:
-                res.paste(resized.resize((fill_width, height), box=(0, 0, 0, height)), box=(0, 0))
-                res.paste(resized.resize((fill_width, height), box=(resized.width, 0, resized.width, height)), box=(fill_width + src_w, 0))
+                res.paste(resized.resize((fill_width, height),
+                          box=(0, 0, 0, height)), box=(0, 0))
+                res.paste(resized.resize((fill_width, height), box=(
+                    resized.width, 0, resized.width, height)), box=(fill_width + src_w, 0))
 
     return np.array(res)
 
@@ -115,7 +124,7 @@ def set_image_shape_ceil(im, shape_ceil):
 
     H_origin, W_origin, _ = im.shape
     H, W = H_origin, W_origin
-    
+
     for _ in range(256):
         current_shape_ceil = get_shape_ceil(H, W)
         if abs(current_shape_ceil - shape_ceil) < 0.1:
@@ -267,7 +276,8 @@ def unwrap_style_text_from_prompt(style_text, prompt):
         # Work out whether the given prompt starts with the style text. If so, we
         # return True and the prompt text up to where the style text starts.
         if stripped_prompt.endswith(stripped_style_text):
-            prompt = stripped_prompt[: len(stripped_prompt) - len(stripped_style_text)]
+            prompt = stripped_prompt[: len(
+                stripped_prompt) - len(stripped_style_text)]
             if prompt.endswith(", "):
                 prompt = prompt[:-2]
             return True, prompt, prompt
@@ -304,7 +314,8 @@ def extract_styles_from_prompt(prompt, negative_prompt):
     applicable_styles = []
 
     for style_name, (style_prompt, style_negative_prompt) in modules.sdxl_styles.styles.items():
-        applicable_styles.append(PromptStyle(name=style_name, prompt=style_prompt, negative_prompt=style_negative_prompt))
+        applicable_styles.append(PromptStyle(
+            name=style_name, prompt=style_prompt, negative_prompt=style_negative_prompt))
 
     real_prompt = ''
 
@@ -336,7 +347,8 @@ def extract_styles_from_prompt(prompt, negative_prompt):
         else:
             # find real_prompt when only prompt expansion is selected
             first_word = prompt.split(', ')[0]
-            first_word_positions = [i for i in range(len(prompt)) if prompt.startswith(first_word, i)]
+            first_word_positions = [i for i in range(
+                len(prompt)) if prompt.startswith(first_word, i)]
             if len(first_word_positions) > 1:
                 real_prompt = prompt[:first_word_positions[-1]]
                 extracted.append(modules.sdxl_styles.fooocus_expansion)
@@ -374,7 +386,8 @@ def get_file_from_folder_list(name, folders):
         folders = [folders]
 
     for folder in folders:
-        filename = os.path.abspath(os.path.realpath(os.path.join(folder, name)))
+        filename = os.path.abspath(
+            os.path.realpath(os.path.join(folder, name)))
         if os.path.isfile(filename):
             return filename
 
@@ -474,18 +487,23 @@ def apply_wildcards(wildcard_text, rng, i, read_wildcards_in_order) -> str:
         print(f'[Wildcards] processing: {wildcard_text}')
         for placeholder in placeholders:
             try:
-                matches = [x for x in modules.config.wildcard_filenames if os.path.splitext(os.path.basename(x))[0] == placeholder]
-                words = open(os.path.join(modules.config.path_wildcards, matches[0]), encoding='utf-8').read().splitlines()
+                matches = [x for x in modules.config.wildcard_filenames if os.path.splitext(
+                    os.path.basename(x))[0] == placeholder]
+                words = open(os.path.join(modules.config.path_wildcards,
+                             matches[0]), encoding='utf-8').read().splitlines()
                 words = [x for x in words if x != '']
                 assert len(words) > 0
                 if read_wildcards_in_order:
-                    wildcard_text = wildcard_text.replace(f'__{placeholder}__', words[i % len(words)], 1)
+                    wildcard_text = wildcard_text.replace(
+                        f'__{placeholder}__', words[i % len(words)], 1)
                 else:
-                    wildcard_text = wildcard_text.replace(f'__{placeholder}__', rng.choice(words), 1)
+                    wildcard_text = wildcard_text.replace(
+                        f'__{placeholder}__', rng.choice(words), 1)
             except:
                 print(f'[Wildcards] Warning: {placeholder}.txt missing or empty. '
                       f'Using "{placeholder}" as a normal word.')
-                wildcard_text = wildcard_text.replace(f'__{placeholder}__', placeholder)
+                wildcard_text = wildcard_text.replace(
+                    f'__{placeholder}__', placeholder)
             print(f'[Wildcards] {wildcard_text}')
 
     print(f'[Wildcards] BFS stack overflow. Current text: {wildcard_text}')
@@ -501,8 +519,10 @@ def get_image_size_info(image: np.ndarray, aspect_ratios: list) -> str:
         lcm_ratio = f'{width // gcd}:{height // gcd}'
         size_info = f'Image Size: {width} x {height}, Ratio: {ratio}, {lcm_ratio}'
 
-        closest_ratio = min(aspect_ratios, key=lambda x: abs(ratio - float(x.split('*')[0]) / float(x.split('*')[1])))
-        recommended_width, recommended_height = map(int, closest_ratio.split('*'))
+        closest_ratio = min(aspect_ratios, key=lambda x: abs(
+            ratio - float(x.split('*')[0]) / float(x.split('*')[1])))
+        recommended_width, recommended_height = map(
+            int, closest_ratio.split('*'))
         recommended_ratio = round(recommended_width / recommended_height, 2)
         recommended_gcd = math.gcd(recommended_width, recommended_height)
         recommended_lcm_ratio = f'{recommended_width // recommended_gcd}:{recommended_height // recommended_gcd}'
@@ -513,3 +533,13 @@ def get_image_size_info(image: np.ndarray, aspect_ratios: list) -> str:
         return size_info
     except Exception as e:
         return f'Error reading image: {e}'
+
+
+def load_page(filename):
+    """Load an HTML file as a string and return it"""
+    file_path = os.path.join("web", filename)
+
+    with open(file_path, 'r') as file:
+        content = file.read()
+
+    return content
