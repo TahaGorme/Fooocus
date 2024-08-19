@@ -711,13 +711,13 @@ with shared.gradio_root:
 # SETTINGS #
         with gr.Column(scale=1, visible=modules.config.default_advanced_checkbox) as advanced_column:
             with gr.Tab(label='Settings'):
-                jobs_queue = gr.HTML(
-                    load_page('components/job-queue/index.html'))
-                queue_button = gr.Button(
-                    "Add Job", elem_id="add_button")
+                # jobs_queue = gr.HTML(
+                #     load_page('components/job-queue/index.html'))
+                # queue_button = gr.Button(
+                #     "Add Job", elem_id="add_button")
 
-                queue_button.click(
-                    on_queue_pressed, _js="()=>{addJob()}", inputs=[], outputs=jobs_queue)
+                # queue_button.click(
+                #     on_queue_pressed, _js="()=>{addJob()}", inputs=[], outputs=jobs_queue)
 
                 if not args_manager.args.disable_preset_selection:
                     preset_selection = gr.Dropdown(label='Preset',
