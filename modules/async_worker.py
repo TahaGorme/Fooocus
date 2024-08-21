@@ -1782,7 +1782,7 @@ def worker():
             progressbar(async_task, current_progress,
                         f'Preparing task {current_task_id + 1}/{async_task.image_number} ...')
             current_task_number = current_task_id + 1
-            setup(async_task, current_task_number)
+            setup(async_task)
             patch_samplers(async_task)
             execution_start_time = time.perf_counter()
             try:
@@ -1841,10 +1841,9 @@ def worker():
         stop_processing(async_task, processing_start_time)
         return
 
-    def setup(async_task: AsyncTask, current_task_number):
+    def setup(async_task: AsyncTask):
         base_model_additional_loras = []
         current_progress = 0
-        tasks = []
         use_synthetic_refiner = False
         if fooocus_expansion in async_task.style_selections:
             use_expansion = True
@@ -1865,11 +1864,10 @@ def worker():
             clip_vision_path, ip_negative_path, ip_adapter_face_path)
         inpaint_worker.current_task = None
 
-        loras = async_task.loras
-        tasks, use_expansion, loras, current_progress = process_prompt(async_task, async_task.prompt, async_task.negative_prompt,
-                                                                       base_model_additional_loras, 1,
-                                                                       async_task.disable_seed_increment, use_expansion, use_style,
-                                                                       use_synthetic_refiner, current_progress, advance_progress=True)
+        process_prompt(async_task, async_task.prompt, async_task.negative_prompt,
+                       base_model_additional_loras, 1,
+                       async_task.disable_seed_increment, use_expansion, use_style,
+                       use_synthetic_refiner, current_progress, advance_progress=True)
         apply_patch_settings(async_task)
         return
 
