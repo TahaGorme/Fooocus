@@ -7,7 +7,7 @@ Fooocus is an advanced image generation software built on Gradio, inspired by th
 
 
 ## Requires tkinter for the file/folder dialog ##
-If you are using Python embedded, download tkinter from [Here](https://github.com/ChrisColeTech/tkinter-standalone) and drag and drop it into your embedded_python folder.
+If you are using Python embedded, you must install TKINTER separately. This verison of Fooocus will automatically download and install TKINTER for you. If that fails, please download tkinter from [Here](https://github.com/ChrisColeTech/tkinter-standalone) and drag and drop it into your embedded_python folder.
 
 ## New Features
 
