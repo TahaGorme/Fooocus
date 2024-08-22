@@ -5,6 +5,10 @@
 
 Fooocus is an advanced image generation software built on Gradio, inspired by the designs of Stable Diffusion and Midjourney. It combines the best features of these platforms to provide an offline, open-source, and user-friendly tool for high-quality image generation.
 
+
+## Requires tkinter for the file/folder dialog ##
+If you are using Python embedded, download tkinter from [Here](https://github.com/ChrisColeTech/tkinter-standalone) and drag and drop it into your embedded_python folder.
+
 ## New Features
 
 *   **Batch File Upload & Folder Upload:**
