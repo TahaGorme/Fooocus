@@ -10,7 +10,6 @@ import importlib.metadata
 import packaging.version
 from packaging.requirements import Requirement
 
-import api.http_server
 
 logging.getLogger("torch.distributed.nn").setLevel(logging.ERROR)  # sshh...
 logging.getLogger("xformers").addFilter(
