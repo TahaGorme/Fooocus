@@ -19,11 +19,12 @@ jobs:
           zip -r foocus-bulk-enhance-perf-monitor.zip api web modules/async_worker.py modules/bulk_enhance_helpers.py weui.py
 
       # Create a unique tag for the release
-      - name: Generate Unique Tag
-        id: generate_tag
+      - name: Define Release Tag and Date
+        id: define_tag
         run: |
-          date=$(date +'%Y%m%d%H%M%S')
-          echo "RELEASE_TAG=v1.0.${date}" >> $GITHUB_ENV
+          echo "RELEASE_TAG=v1.0.0" >> $GITHUB_ENV
+          short_date=$(date +'%Y-%m-%d')
+          echo "RELEASE_DATE=${short_date}" >> $GITHUB_ENV
 
       # Create a pre-release on GitHub
       - name: Create GitHub Release
