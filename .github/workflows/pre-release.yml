@@ -22,7 +22,7 @@ jobs:
       - name: Define Release Tag and Date
         id: define_tag
         run: |
-          count=${GITHUB_RUN_ATTEMPT}
+          count=${GITHUB_RUN_NUMBER}
           echo "Generated tag: v1.0.${count}"
           echo "RELEASE_TAG=v1.0.${count}" >> $GITHUB_ENV
 
