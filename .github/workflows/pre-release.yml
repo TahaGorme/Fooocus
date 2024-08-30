@@ -16,7 +16,7 @@ jobs:
       # Zip only the specified folders and files
       - name: "Zipping Foocus: Bulk Enhance + Perf Monitor files"
         run: |
-          zip -r foocus-bulk-enhance-perf-monitor.zip api web modules/async_worker.py modules/bulk_enhance_helpers.py weui.py
+          zip -r foocus-bulk-enhance-perf-monitor.zip api web modules/async_worker.py modules/bulk_enhance_helpers.py webui.py
 
       # Create a unique tag for the release
       - name: Define Release Tag and Date
