@@ -24,7 +24,7 @@ from modules.sdxl_styles import legal_style_names
 from modules.private_logger import get_current_html_path
 from modules.ui_gradio_extensions import reload_javascript
 from modules.auth import auth_enabled, check_auth
-from modules.util import is_json, load_page
+from modules.util import is_json
 from modules.bulk_enhance_helpers import *
 
 
