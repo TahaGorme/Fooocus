@@ -36,7 +36,7 @@ jobs:
           body: |
             **Foocus: Bulk Enhance + Perf Monitor**
             - Latest version: ${{ env.RELEASE_TAG }}
-            - Released on: ${{ env.RELEASE_DATE }}
+            - Released on: $(date +'%Y-%m-%d')
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
