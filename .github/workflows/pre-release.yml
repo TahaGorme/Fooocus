@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v3
 
       # Zip only the specified folders and files
-      - name: "Zip Foocus: Bulk Enhance + Perf Monitor files"
+      - name: "Zipping Foocus: Bulk Enhance + Perf Monitor files"
         run: |
           zip -r foocus-bulk-enhance-perf-monitor.zip api web modules/async_worker.py modules/bulk_enhance_helpers.py weui.py
 
