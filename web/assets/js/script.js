@@ -53,7 +53,7 @@ function dragElement(elmnt) {
 
 function moveButtonToCenter(duration = 300) {
   const widget = document.getElementById('chart-button-container')
-  const size = localStorage.getItem('chart-size') ?? 'small'
+  const size = localStorage.getItem('chart-size') ?? 'medium'
   const sizes = getSizes()
   const sizeStyles = sizes[size]
   const buttonHeight = +sizeStyles.height + 25
@@ -169,7 +169,7 @@ function checkForUpdates(key, value) {
 }
 
 function isWindowOutsideWorkingArea() {
-  const size = localStorage.getItem('chart-size') ?? 'small'
+  const size = localStorage.getItem('chart-size') ?? 'medium'
   const sizes = getSizes()
   const sizeStyles = sizes[size]
   const buttonHeight = +sizeStyles.height + 25
@@ -373,7 +373,7 @@ function getDisplayAndWindowBounds() {
 }
 
 function getPositions() {
-  const size = localStorage.getItem('chart-size') ?? 'small'
+  const size = localStorage.getItem('chart-size') ?? 'medium'
   const sizes = getSizes()
   const sizeStyles = sizes[size]
   const buttonHeight = +sizeStyles.height + 25
@@ -437,7 +437,7 @@ function getPositions() {
 }
 
 function getCoordinates(isOutside) {
-  var position = localStorage.getItem('perf-monitor-position')
+  var position = localStorage.getItem('perf-monitor-position') ?? 'bottom-right'
 
   if (isOutside) {
     var outsidePosition = getNearestPosition()
@@ -450,7 +450,7 @@ function getCoordinates(isOutside) {
 }
 
 function getNearestPosition() {
-  const size = localStorage.getItem('chart-size') ?? 'small'
+  const size = localStorage.getItem('chart-size') ?? 'medium'
   const sizes = getSizes()
   const sizeStyles = sizes[size]
   const buttonHeight = +sizeStyles.height + 25
@@ -547,7 +547,7 @@ async function updateChartSize() {
     row.classList.add('drag')
   })
 
-  const size = localStorage.getItem('chart-size') ?? 'small'
+  const size = localStorage.getItem('chart-size') ?? 'medium'
   const chartContainer = document.getElementById('chart-container')
   const savedChart = localStorage.getItem('active-chart') ?? 'bar'
 
@@ -664,12 +664,6 @@ async function updateChartSize() {
 const pos = getCoordinates(false)
 goToPosition(pos)
 
-setTimeout(() => {
-  const chartButton = document.getElementById('chart-button')
-  chartButton.classList.add('bottom-left')
-  showPerfMonitor()
-}, 1000)
-
 var shouldShowPerfMonitor = false
 var appIsLoaded = false
 
@@ -678,8 +672,11 @@ window.showPerfMonitor = async function () {
   localStorage.setItem('shouldShowPerfMonitor', shouldShowPerfMonitor)
   const chartButton = document.getElementById('chart-button')
   const chartWrapper = document.getElementById('chart-wrapper')
+  const chartButtonContainer = document.getElementById('chart-button-container')
 
   if (shouldShowPerfMonitor === true) {
+    $(chartButtonContainer).toggleClass('active')
+
     localStorage.setItem('hasUpdates', 'true')
     startInterval()
     await updateChartSize()
@@ -687,6 +684,7 @@ window.showPerfMonitor = async function () {
   } else {
     setTimeout(() => {
       stopInterval()
+      $(chartButtonContainer).toggleClass('active')
     }, 500)
     chartButton.classList.remove('small', 'medium', 'large')
     $(chartWrapper).fadeOut()

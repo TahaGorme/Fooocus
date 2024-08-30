@@ -1,6 +1,6 @@
 #chart-button {
   position: sticky;
-  transition: background-color 0.3s ease, width 0.8s ease, height 0.8s ease, transform 0.8s ease;
+  transition: background-color 0.3s ease, width 0.8s ease, height 0.8s ease, transform 0.5s ease;
   background-color: #00000096 !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
   color: white !important;
@@ -26,6 +26,11 @@
   will-change: transform;
   text-align: center;
   transition: width 0.8s ease, height 0.8s ease, transform 0.3s ease;
+  display: none;
+}
+
+#chart-button-container.active {
+  display: block;
 }
 
 #mydivheader {
@@ -313,10 +318,6 @@ button {
 .resource-monitor-icon {
   margin: 5px;
   height: 14px;
-}
-body {
-  margin: 0px;
-  overflow: hidden;
 }
 
 /* Example CSS transition for smooth resizing */
