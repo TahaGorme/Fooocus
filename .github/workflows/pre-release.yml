@@ -22,7 +22,7 @@ jobs:
       - name: Define Release Tag and Date
         id: define_tag
         run: |
-          count=${{ env.GITHUB_RUN_ATTEMPT }}
+          count=$env:GITHUB_RUN_ATTEMPT
           echo "RELEASE_TAG=v1.0.${count}" >> $GITHUB_ENV
 
       # Create a pre-release on GitHub
