@@ -308,7 +308,7 @@ button {
 
 #show_resource_monitor {
   cursor: pointer !important;
-  z-index: 9991;
+  z-index: 999;
   margin: 5px;
   display: flex;
   font-size: 12px;
