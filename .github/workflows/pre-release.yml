@@ -26,6 +26,13 @@ jobs:
           echo "Generated tag: v1.0.${count}"
           echo "RELEASE_TAG=v1.0.${count}" >> $GITHUB_ENV
 
+      # Set the release date
+      - name: Set Release Date
+        id: set_date
+        run: |
+          current_date=$(date +'%Y-%m-%d')
+          echo "RELEASE_DATE=${current_date}" >> $GITHUB_ENV
+
       # Create a pre-release on GitHub
       - name: Create GitHub Release
         id: create_release
@@ -36,7 +43,7 @@ jobs:
           body: |
             **Foocus: Bulk Enhance + Perf Monitor**
             - Latest version: ${{ env.RELEASE_TAG }}
-            - Released on: $(date +'%Y-%m-%d')
+            - Released on: ${{ env.RELEASE_DATE }}
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
