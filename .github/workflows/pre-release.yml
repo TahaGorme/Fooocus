@@ -22,9 +22,8 @@ jobs:
       - name: Define Release Tag and Date
         id: define_tag
         run: |
-          echo "RELEASE_TAG=v1.0.0" >> $GITHUB_ENV
-          short_date=$(date +'%Y-%m-%d')
-          echo "RELEASE_DATE=${short_date}" >> $GITHUB_ENV
+          count=$(git rev-list --count HEAD)
+          echo "RELEASE_TAG=v1.0.${count}" >> $GITHUB_ENV
 
       # Create a pre-release on GitHub
       - name: Create GitHub Release
