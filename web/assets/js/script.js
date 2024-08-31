@@ -151,9 +151,10 @@ window.mediumChart = async function () {
 window.largeChart = async function () {
   setTimeout(async () => {
     checkForUpdates('perf-monitor-position', 'center')
+    checkForUpdates('chart-size', 'large')
     await updateChartSize()
   }, 50)
-  checkForUpdates('chart-size', 'large')
+  
 }
 
 function moveToCenter() {
