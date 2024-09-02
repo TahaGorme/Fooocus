@@ -8,6 +8,8 @@ from .controllers import register_blueprints
 import psutil
 import GPUtil
 import threading
+import signal
+import sys
 
 # Initialize Flask app
 title = f"Resource Monitor"
@@ -98,11 +100,14 @@ def handle_disconnect():
     pass
 
 def background_thread():
-    while True:
-        current_time = time.time()
-        get_cache(current_time)
-        socketio.emit('data_update', cache['data'])
-        time.sleep(.5) 
+    try:
+        while True:
+            current_time = time.time()
+            get_cache(current_time)
+            socketio.emit('data_update', cache['data'])
+            socketio.sleep(0.5)  # Use socketio.sleep() to avoid blocking issues
+    except Exception as e:
+        logging.error(f"Error in background_thread: {e}")
 
 def run_app():
     time.sleep(1)  # Sleep for a short while to let the server start
@@ -111,6 +116,13 @@ def run_app():
     # Run the Flask app with SocketIO
     socketio.run(app, port=5000)
 
+def signal_handler(sig, frame):
+    sys.exit(0)  # Clean exit of the program
+
+# Register signal handler for graceful shutdown
+signal.signal(signal.SIGINT, signal_handler)
+
 # Start Flask app in a separate thread
 thread = threading.Thread(target=run_app)
+thread.daemon = True  # Make the thread a daemon
 thread.start()
