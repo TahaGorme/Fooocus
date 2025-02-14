@@ -1,3 +1,63 @@
+# 🎉 Fooocus with Bulk Upload 🎉
+
+![Build Status](https://img.shields.io/github/actions/workflow/status/ChrisColeTech/Fooocus/codeql.yml?branch=main&label=Build%20Status)
+
+
+Fooocus is an advanced image generation software built on Gradio, inspired by the designs of Stable Diffusion and Midjourney. It combines the best features of these platforms to provide an offline, open-source, and user-friendly tool for high-quality image generation.
+
+
+## Requires tkinter for the file/folder dialog ##
+If you are using Python embedded, you must install TKINTER separately. This verison of Fooocus will automatically download and install TKINTER for you. If that fails, please download tkinter from [Here](https://github.com/ChrisColeTech/tkinter-standalone) and drag and drop it into your embedded_python folder.
+
+## New Features
+
+*   **Batch File Upload & Folder Upload:**
+    *   Support for uploading multiple files at once or entire folders for batch processing.
+*   **Bulk Enhance:**
+    *   Immediately enhance each image generated in bulk to improve quality and consistency.
+*   **Smaller Resolutions for Faster Generation:**
+    *   Added support for 512x512 and 704x704 resolutions, providing faster image generation without sacrificing quality.
+*   **Default Enhance Prompts:**
+    *   Pre-defined enhancement prompts for various body parts such as 'face', 'eye', 'mouth', 'hair', 'hand', and 'body' to streamline the enhancement process.
+*   **Enhanced Error Handling:**
+    *   Improved error handling to provide more informative and user-friendly messages during processing.
+
+
+## 📸 Preview
+
+### Uploading Images
+
+*   **Batch File Upload:**
+    *   Select multiple files or an entire folder to upload images in bulk.
+    *   ![Preview Image](https://github.com/ChrisColeTech/Fooocus/blob/main/img/preview9.png)
+
+### Enhancing Images
+
+*   **Immediate Enhancement:**
+    *   Images are immediately enhanced after being generated, no more waiting!
+    *   ![Preview Image](https://github.com/ChrisColeTech/Fooocus/blob/main/img/preview5.png)
+
+
+### Image Resolutions
+
+*   Get faster processing, use less VRAM with smaller resolutions:
+    *   **512x512**
+    *   **704x704**
+    *   ![Preview Image](https://github.com/ChrisColeTech/Fooocus/blob/main/img/preview7.png)
+
+### Pre-Selection Prompts
+
+*   Use default enhancement prompts for various body parts to ensure high-quality results:
+    *  ![Preview Image](https://github.com/ChrisColeTech/Fooocus/blob/main/img/preview8.png)
+
+## Error Handling
+
+Fooocus includes improved error handling to ensure smoother operation and provide clear, informative messages in case of issues. The system will display:
+
+*   **Errors** with emojis like 💥 for critical issues.
+*   **Warnings** with ⚠️ for value-related issues.
+*   **Informational messages** with ℹ️ for additional guidance.
+
 <div align=center>
 <img src="https://github.com/lllyasviel/Fooocus/assets/19834515/483fb86d-c9a2-4c20-997c-46dafc124f25">
 </div>

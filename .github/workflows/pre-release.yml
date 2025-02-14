@@ -1,0 +1,61 @@
+name: Create Pre-Release
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Zip only the specified folders and files
+      - name: "Zipping Foocus: Bulk Enhance + Perf Monitor files"
+        run: |
+          zip -r foocus-bulk-enhance-perf-monitor.zip api web modules/async_worker.py modules/bulk_enhance_helpers.py webui.py
+
+      # Create a unique tag for the release
+      - name: Define Release Tag and Date
+        id: define_tag
+        run: |
+          count=${GITHUB_RUN_NUMBER}
+          echo "Generated tag: v1.0.${count}"
+          echo "RELEASE_TAG=v1.0.${count}" >> $GITHUB_ENV
+
+      # Set the release date
+      - name: Set Release Date
+        id: set_date
+        run: |
+          current_date=$(date +'%Y-%m-%d')
+          echo "RELEASE_DATE=${current_date}" >> $GITHUB_ENV
+
+      # Create a pre-release on GitHub
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: Bulk Upload + Perf Monitor - Source Files ${{ env.RELEASE_TAG }}
+          body: |
+            **Foocus: Bulk Enhance + Perf Monitor**
+            - Latest version: ${{ env.RELEASE_TAG }}
+            - Released on: ${{ env.RELEASE_DATE }}
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Upload the zipped file to the release
+      - name: "Upload Release Asset for Foocus: Bulk Enhance + Perf Monitor"
+        if: steps.create_release.outputs.upload_url != ''
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./foocus-bulk-enhance-perf-monitor.zip
+          asset_name: foocus-bulk-enhance-perf-monitor.zip
+          asset_content_type: application/zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
